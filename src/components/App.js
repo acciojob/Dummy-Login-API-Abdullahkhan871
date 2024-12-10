@@ -33,14 +33,14 @@ const App = () => {
       if (email == t.email) {
         if (password != t.password) {
           let int1 = setTimeout(() => {
-            setPasswordError(!passwordError);
+            setPasswordError(true);
           }, 3000);
           break;
         } else {
           setUserError(false);
+          setPasswordError(false);
           let int1 = setTimeout(() => {
             console.log(userData);
-            setPasswordError(false);
           }, 3000);
           break;
         }
