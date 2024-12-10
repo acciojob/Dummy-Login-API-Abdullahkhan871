@@ -71,8 +71,8 @@ const App = () => {
         />
         <button id="submit-form-btn">Submit</button>
       </form>
-      {userError && <p id="user-error">User not found</p>}
-      {passwordError && <p id="password-error">Password Incorrect</p>}
+      <p id="user-error">{userError && "User not found"}</p>
+      <p id="password-error">{passwordError && "Password Incorrect"}</p>
     </div>
   );
 };
