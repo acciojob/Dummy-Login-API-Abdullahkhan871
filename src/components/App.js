@@ -1,81 +1,65 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react';
 
-const App = () => {
-  const [userError, setUserError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [email, setemail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const userData = [
+const dummyData = [
     {
-      id: 1,
-      name: "ABC",
-      email: "abc@gmail.com",
-      password: "12",
+        id: 1,
+        name: "ABC",
+        email: "abc@gmail.com",
+        password: "12"
     },
     {
-      id: 2,
-      name: "DEF",
-      email: "def@gmail.com",
-      password: "1234",
+        id: 2,
+        name: "DEF",
+        email: "def@gmail.com",
+        password: "1234"
     },
     {
-      id: 3,
-      name: "GHI",
-      email: "ghi@gmail.com",
-      password: "123456",
-    },
-  ];
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    for (let t of userData) {
-      if (email == t.email) {
-        if (password != t.password) {
-          let int1 = setTimeout(() => {
-            setPasswordError(true);
-          }, 3000);
-          break;
-        } else {
-          setUserError(false);
-          setPasswordError(false);
-          let int1 = setTimeout(() => {
-            console.log(userData);
-          }, 3000);
-          break;
-        }
-      } else {
-        let int1 = setTimeout(() => {
-          setUserError(true);
-        }, 3000);
-        break;
-      }
+        id: 3,
+        name: "GHI",
+        email: "ghi@gmail.com",
+        password: "123456"
     }
-  }
+];
 
-  return (
-    <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          id="input-email"
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setemail(e.target.value)}
-        />
-        <input
-          id="input-password"
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button id="submit-form-btn">Submit</button>
-      </form>
-      <p id="user-error">{userError && "User not found"}</p>
-      <p id="password-error">{passwordError && "Password Incorrect"}</p>
-    </div>
-  );
-};
+const LoginForm = () => {
 
-export default App;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
+    const [noUser, setNoUser] = useState(false);
+
+    function handleSubmit(event){
+        event.preventDefault();
+        for(const data of dummyData){
+            if(data.email === email){
+                if(data.password === password){
+                    setTimeout(() => console.log(data), 3000);
+                    setError(false);
+                    setNoUser(false);
+                    return;
+                }
+                else{
+                    setError(true);
+                    setTimeout(() => console.log('wrong password'), 3000);
+                    return;
+                }
+            }
+        }
+
+        setNoUser(true);
+    }
+
+    return (
+        <div className='login-form'>
+            <form onSubmit={handleSubmit}>
+                <input type='email' value={email} id="input-email" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+                <input type='password' value={password} id="input-password" placeholder='password' onChange={(e) => setPassword(e.target.value)} />
+                <button type='submit' id="submit-form-btn">Submit</button>
+            </form>
+            <p id="password-error">{error && "Password Incorrect"}</p>
+            <p id="user-error">{noUser && "User not found"}</p>
+        </div>
+    )
+}
+
+export default LoginForm;
