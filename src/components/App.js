@@ -37,9 +37,9 @@ const App = () => {
           }, 3000);
           break;
         } else {
+          setUserError(!userError);
           let int1 = setTimeout(() => {
             console.log(userData);
-            setUserError(!userError);
             setPasswordError(false);
           }, 3000);
           break;
